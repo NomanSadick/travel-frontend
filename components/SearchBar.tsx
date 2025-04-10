@@ -16,13 +16,13 @@ const SearchBar = ({ searchTerm, setSearchTerm }: Props) => {
     const delay = setTimeout(() => {
       setSearchTerm(localSearch); // debounce করে searchTerm update হবে
       setIsTyping(false);
-    }, 3000);
+    }, 2000);
   
     return () => clearTimeout(delay); // টাইপ করতে থাকলে আগের টাইমার ক্যানসেল হবে
   }, [localSearch, setSearchTerm]);
 
   return (
-    <div className="w-full max-w-xl mx-auto">
+    <div className="w-full mx-auto">
       {isTyping && <p className="text-sm text-gray-400">Searching...</p>}
 
       <input
@@ -30,7 +30,7 @@ const SearchBar = ({ searchTerm, setSearchTerm }: Props) => {
         placeholder="Search by package name..."
         value={localSearch}
         onChange={(e) => setLocalSearch(e.target.value)}
-        className="w-full px-4 py-2 border rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 shadow-sm"
+        className="w-full px-4 py-2 border-2 border-orange-300 rounded-xl focus:outline-none focus:ring-1 focus:ring-orange-300"
       />
     </div>
   );
