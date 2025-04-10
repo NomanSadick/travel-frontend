@@ -19,6 +19,13 @@ const DurationFilter = ({ selectedDurations, setSelectedDurations }: Props) => {
   return (
     <div className="flex flex-wrap gap-3 justify-center py-4">
       <h1>Durations</h1>
+      <label className="flex items-center space-x-2">
+          <input
+            type="checkbox"
+     
+          />
+          
+        </label>
     </div>
   );
 };

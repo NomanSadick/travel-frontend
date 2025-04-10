@@ -17,6 +17,7 @@ const PackageList = ({ searchTerm }: Props) => {
   const [priceRange, setPriceRange] = useState({ min: 0, max: 100000 });
   const [sortOrder, setSortOrder] = useState("Default");
   const [selectedDurations, setSelectedDurations] = useState<number[]>([]);
+  
 
 
   const handlePriceChange = (min: number, max: number) => {
@@ -53,7 +54,11 @@ if(sortOrder === "lowToHigh"){
 }
 
  // Duration (multi-select)
- 
+ if (selectedDurations.length > 0) {
+  filtered = filtered.filter((pkg: any) =>
+    selectedDurations.includes(pkg.days)
+  );
+}
 
   return (
     <div className="container mx-auto px-4 py-8">

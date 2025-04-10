@@ -30,7 +30,7 @@ const SearchBar = ({ searchTerm, setSearchTerm }: Props) => {
         placeholder="Search by package name..."
         value={localSearch}
         onChange={(e) => setLocalSearch(e.target.value)}
-        className="w-full px-4 py-2 border-2 border-orange-300 rounded-xl focus:outline-none focus:ring-1 focus:ring-orange-300"
+        className="w-full px-4 py-2 border-1 border-orange-300 rounded-xl focus:outline-none focus:ring-1 focus:ring-orange-300"
       />
     </div>
   );
