@@ -62,6 +62,20 @@ const PackageList = ({ searchTerm }: Props) => {
       <div className="flex flex-col lg:flex-row gap-6 mb-6">
         {/* Sidebar */}
         <div className="lg:w-1/4 w-full bg-[#FAFAFA] shadow p-2 rounded-sm h-[100%]">
+          <div className="flex justify-between items-center mb-4 px-2">
+            <h2 className="text-xl font-semibold text-gray-700">Filters</h2>
+            <button
+              className="flex items-center text-orange-500 hover:underline cursor-pointer"
+              onClick={() => {
+                setSelectedCategory("All");
+                setPriceRange({ min: 0, max: 100000 });
+                setSortOrder("Default");
+                setSelectedDurations([]);
+              }}
+            >
+              Reset
+            </button>
+          </div>
           <PriceFilter onPriceChange={handlePriceChange} />
           <SortDropdown sortOrder={sortOrder} setSortOrder={setSortOrder} />
           <DurationFilter
