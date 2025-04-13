@@ -6,7 +6,6 @@ import PriceFilter from "./PriceFilter";
 import SortDropdown from "./SortDropdown";
 import DurationFilter from "./DurationFilter";
 
-
 type Props = {
   searchTerm: string;
 };
@@ -17,8 +16,6 @@ const PackageList = ({ searchTerm }: Props) => {
   const [priceRange, setPriceRange] = useState({ min: 0, max: 100000 });
   const [sortOrder, setSortOrder] = useState("Default");
   const [selectedDurations, setSelectedDurations] = useState<number[]>([]);
-  
-
 
   const handlePriceChange = (min: number, max: number) => {
     setPriceRange({ min, max });
@@ -46,29 +43,31 @@ const PackageList = ({ searchTerm }: Props) => {
     (pkg: any) => pkg.price >= priceRange.min && pkg.price <= priceRange.max
   );
 
- // Sort by Price
-if(sortOrder === "lowToHigh"){
-  filtered = filtered.sort((a: any, b: any) => a.price - b.price);
-} else if(sortOrder === "highToLow"){
-  filtered = filtered.sort((a: any, b: any) => b.price - a.price);
-}
+  // Sort by Price
+  if (sortOrder === "lowToHigh") {
+    filtered = filtered.sort((a: any, b: any) => a.price - b.price);
+  } else if (sortOrder === "highToLow") {
+    filtered = filtered.sort((a: any, b: any) => b.price - a.price);
+  }
 
- // Duration (multi-select)
- if (selectedDurations.length > 0) {
-  filtered = filtered.filter((pkg: any) =>
-    selectedDurations.includes(pkg.days)
-  );
-}
+  // Duration (multi-select)
+  if (selectedDurations.length > 0) {
+    filtered = filtered.filter((pkg: any) =>
+      selectedDurations.includes(pkg.days)
+    );
+  }
 
   return (
-    <div className="container mx-auto px-4 py-8">
-    
+    <div className="container-custom mx-auto px-4 py-8">
       <div className="flex flex-col lg:flex-row gap-6 mb-6">
         {/* Sidebar */}
-        <div className="lg:w-1/4 w-full bg-[#FAF0E4] p-2 rounded-sm">
+        <div className="lg:w-1/4 w-full bg-[#FAFAFA] shadow p-2 rounded-sm h-[100%]">
           <PriceFilter onPriceChange={handlePriceChange} />
           <SortDropdown sortOrder={sortOrder} setSortOrder={setSortOrder} />
-          <DurationFilter selectedDurations={selectedDurations} setSelectedDurations={setSelectedDurations}/>
+          <DurationFilter
+            selectedDurations={selectedDurations}
+            setSelectedDurations={setSelectedDurations}
+          />
         </div>
 
         {/* Main Content */}
@@ -81,17 +80,19 @@ if(sortOrder === "lowToHigh"){
             {filtered?.map((pkg: any) => (
               <div
                 key={pkg.id}
-                className=" rounded-lg p-4 shadow hover:shadow-lg transition-all duration-200 bg-[#ADE792] "
+                className=" rounded-lg p-4 shadow hover:shadow-lg transition-all duration-400 bg-gray-50 text-[#146B83] space-y-2"
               >
-                <h3 className="text-xl font-semibold text-white">{pkg.title}</h3>
-                <p className="text-white">{pkg.location}</p>
-                <p className="text-sm text-white">
+                <h3 className="text-xl font-semibold text-black">
+                  {pkg.title}
+                </h3>
+                <p className="">{pkg.location}</p>
+                <p className="text-sm">
                   {pkg.days} days / {pkg.nights} nights
                 </p>
-                <p className="font-bold text-blue-600">
-                  BDT {pkg.price?.toLocaleString()}
+                <p className="font-bold x">
+                  <span>BDT</span> {pkg.price?.toLocaleString()}
                 </p>
-                <p className="text-sm text-white">{pkg.category}</p>
+                <p className="text-sm">{pkg.category}</p>
               </div>
             ))}
           </div>

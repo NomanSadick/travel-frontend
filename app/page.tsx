@@ -8,7 +8,7 @@ const App = () => {
   const [searchTerm, setSearchTerm] = useState(""); // Manage search term in state
 
   return (
-    <main className="max-w-7xl mx-auto p-4 space-y-6">
+    <main className="max-w-7xl mx-auto p-4 space-y-6 ">
       <SearchBar searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
       <PackageList searchTerm={searchTerm} />
     </main>
