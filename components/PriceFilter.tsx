@@ -27,7 +27,7 @@ const PriceFilter = ({ onPriceChange }: Props) => {
             placeholder="Enter Min Price"
             value={minPrice}
             onChange={(e) => setMinPrice(Number(e.target.value))}
-            className="border border-orange-300 rounded-lg px-4 py-2 w-full focus:outline-none focus:ring-2 focus:ring-orange-300"
+            className="border border-orange-300 rounded-lg px-4 py-2 w-full focus:outline-none focus:ring-1 focus:ring-orange-300"
           />
         </div>
 
@@ -39,7 +39,7 @@ const PriceFilter = ({ onPriceChange }: Props) => {
             placeholder="Enter Max Price"
             value={maxPrice}
             onChange={(e) => setMaxPrice(Number(e.target.value))}
-            className="border border-orange-300 rounded-lg px-4 py-2 w-full focus:outline-none focus:ring-2 focus:ring-orange-300"
+            className="border border-orange-300 rounded-lg px-4 py-2 w-full focus:outline-none focus:ring-1 focus:ring-orange-300"
           />
         </div>
       </div>

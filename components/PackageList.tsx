@@ -1,10 +1,11 @@
 "use client";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useGetPackagesQuery } from "@/features/packages/packageApi";
 import CategoryFilter from "./CategoryFilter";
 import PriceFilter from "./PriceFilter";
 import SortDropdown from "./SortDropdown";
 import DurationFilter from "./DurationFilter";
+import Pagination from "./Pagination";
 
 type Props = {
   searchTerm: string;
@@ -16,10 +17,19 @@ const PackageList = ({ searchTerm }: Props) => {
   const [priceRange, setPriceRange] = useState({ min: 0, max: 100000 });
   const [sortOrder, setSortOrder] = useState("Default");
   const [selectedDurations, setSelectedDurations] = useState<number[]>([]);
+  const [page, setPage] = useState(1);
+
+  const limit = 6;
+
 
   const handlePriceChange = (min: number, max: number) => {
     setPriceRange({ min, max });
   };
+
+  // 3️⃣ Reset to page 1 when filter changes
+  useEffect(() => {
+    setPage(1);
+  }, [searchTerm, selectedCategory, priceRange, sortOrder, selectedDurations]);
 
   if (isLoading) return <div>Loading...</div>;
   if (error) return <div>Error loading packages</div>;
@@ -57,6 +67,11 @@ const PackageList = ({ searchTerm }: Props) => {
     );
   }
 
+  // 2️⃣ Apply Pagination on filtered data
+  const startIndex = (page - 1) * limit;
+  const endIndex = startIndex + limit;
+  const paginatedPackages = filtered.slice(startIndex, endIndex);
+
   return (
     <div className="container-custom mx-auto px-4 py-8">
       <div className="flex flex-col lg:flex-row gap-6 mb-6">
@@ -91,7 +106,7 @@ const PackageList = ({ searchTerm }: Props) => {
             setSelectedCategory={setSelectedCategory}
           />
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            {filtered?.map((pkg: any) => (
+            {paginatedPackages?.map((pkg: any) => (
               <div
                 key={pkg.id}
                 className=" rounded-lg p-4 shadow hover:shadow-lg transition-all duration-400 bg-gray-50 text-[#146B83] space-y-2"
@@ -110,6 +125,12 @@ const PackageList = ({ searchTerm }: Props) => {
               </div>
             ))}
           </div>
+          <Pagination
+            page={page}
+            setPage={setPage}
+            total={filtered.length}
+            limit={limit}
+          />
         </div>
       </div>
     </div>
