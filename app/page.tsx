@@ -1,7 +1,7 @@
 "use client";
 import React, { useState } from "react";
 import SearchBar from "@/components/SearchBar";
-import PackageList from "@/components/PackageList";
+import PackageList from "@/components/Pac";
 
 
 const App = () => {

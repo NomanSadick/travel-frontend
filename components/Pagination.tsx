@@ -24,7 +24,7 @@ const Pagination = ({ page, setPage, total, limit }: PaginationProps) => {
       <button
         onClick={handlePrev}
         disabled={page === 1}
-        className="px-3 py-1 rounded border text-sm disabled:opacity-50"
+        className="px-3 py-1 rounded border border-orange-300 text-sm disabled:opacity-50"
       >
         Prev
       </button>
@@ -33,8 +33,8 @@ const Pagination = ({ page, setPage, total, limit }: PaginationProps) => {
         <button
           key={p}
           onClick={() => setPage(p)}
-          className={`px-3 py-1 border rounded text-sm ${
-            p === page ? "bg-orange-300 text-white" : "hover:bg-gray-100"
+          className={`px-3 py-1 border border-orange-300 rounded text-sm ${
+            p === page ? "bg-orange-300 text-white border-orange-300" : "hover:bg-gray-100"
           }`}
         >
           {p}
@@ -44,7 +44,7 @@ const Pagination = ({ page, setPage, total, limit }: PaginationProps) => {
       <button
         onClick={handleNext}
         disabled={page === totalPages}
-        className="px-3 py-1 rounded border text-sm disabled:opacity-50"
+        className="px-3 py-1 rounded border border-orange-300 text-sm disabled:opacity-50"
       >
         Next
       </button>

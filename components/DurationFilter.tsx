@@ -34,7 +34,7 @@ const DurationFilter = ({ selectedDurations, setSelectedDurations }: Props) => {
           return (
             <label
               key={days}
-              className="flex items-center gap-3 cursor-pointer p-3 border border-orange-300 rounded-lg hover:border-orange-300"
+              className="flex items-center gap-1 cursor-pointer p-3 border border-orange-300 rounded-lg hover:border-orange-300"
             >
               {/* Checkbox wrapper */}
               <div className="relative flex items-center justify-center w-5 h-5">
