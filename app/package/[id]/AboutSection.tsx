@@ -4,7 +4,7 @@ interface AboutSectionProps {
     nights: number;
   }
   
-  const AboutSection = ({ description, days, nights }: AboutSectionProps) => {
+  const AboutSection = ({ description, days, nights}: AboutSectionProps) => {
     return (
       <div className="">
         <h2 className="text-2xl font-semibold mb-2">About This Package</h2>
