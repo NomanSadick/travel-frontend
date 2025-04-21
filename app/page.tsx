@@ -12,21 +12,28 @@ const Home = () => {
   if (isError) return <p>Something went wrong</p>;
 
   // Filter data based on search term
-  const filteredPackages = data?.filter((pkg: any) =>
+  interface Package {
+    _id: string;
+    title: string;
+    description: string;
+    price: number;
+  }
+
+  const filteredPackages = data?.filter((pkg: Package) =>
     pkg.title.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
   return (
-    <main className="max-w-7xl mx-auto p-4">
+    <main className="max-w-7xl mx-auto p-4 ">
       {/* ✅ SearchBar at the top */}
       <SearchBar searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
 
       {/* Package List */}
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 mt-6">
-        {filteredPackages?.slice(0, 6).map((pkg: any) => (
+        {filteredPackages?.slice(0, 6).map((pkg: Package) => (
           <Card
             key={pkg._id}
-            id={pkg._id}
+          
             title={pkg.title}
             description={pkg.description}
             price={pkg.price}

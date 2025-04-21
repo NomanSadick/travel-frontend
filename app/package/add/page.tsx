@@ -23,13 +23,24 @@ const AddPackagePage = () => {
   const { fields: inclusionFields, append: appendInclusion, remove: removeInclusion } = useFieldArray({ control, name: "inclusions" });
   const { fields: exclusionFields, append: appendExclusion, remove: removeExclusion } = useFieldArray({ control, name: "exclusions" });
 
-  const onSubmit = async (data: any) => {
+  interface PackageFormData {
+    title: string;
+    location: string;
+    description: string;
+    price: string;
+    highlights: { title: string; description: string }[];
+    itinerary: { day: string; title: string; description: string }[];
+    inclusions: { value: string }[];
+    exclusions: { value: string }[];
+  }
+
+  const onSubmit = async (data: PackageFormData) => {
     const uniqueInclusions = Array.from(
-      new Map(data.inclusions.map((item: any) => [item.value.trim(), item])).values()
+      new Map(data.inclusions.map((item: { value: string }) => [item.value.trim(), item])).values()
     ).filter((item) => item.value.trim());
 
     const uniqueExclusions = Array.from(
-      new Map(data.exclusions.map((item: any) => [item.value.trim(), item])).values()
+      new Map(data.exclusions.map((item: { value: string }) => [item.value.trim(), item])).values()
     ).filter((item) => item.value.trim());
 
     const finalData = {

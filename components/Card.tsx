@@ -1,8 +1,8 @@
 import React from "react";
 import { useRouter } from "next/navigation";
-import Image from "next/image";
 
-const Card = ({ title, description, price, id }: { title: string; description: string; price: number; id: string }) => {
+
+const Card = ({ title, description, price, }: { title: string; description: string; price: number; }) => {
   const router = useRouter();
 
   const handleClick = () => {
