@@ -8,7 +8,7 @@ const AddPackagePage = () => {
       title: "",
       location: "",
       description: "",
-      price: "", // ✅ Added price here
+      price: "",
       highlights: [{ title: "", description: "" }],
       itinerary: [{ day: "", title: "", description: "" }],
       inclusions: [{ value: "" }],
@@ -34,7 +34,7 @@ const AddPackagePage = () => {
 
     const finalData = {
       ...data,
-      price: parseFloat(data.price), // ✅ Convert price to number
+      price: parseFloat(data.price),
       inclusions: uniqueInclusions,
       exclusions: uniqueExclusions,
     };
@@ -50,72 +50,108 @@ const AddPackagePage = () => {
   };
 
   return (
-    <div className="max-w-2xl mx-auto p-6">
-      <h1 className="text-2xl font-bold mb-4">Add New Package</h1>
-      <form action="#" method="POST" onSubmit={handleSubmit(onSubmit)} className="space-y-4">
-        <input type="text" placeholder="Package Title" {...register("title", { required: true })} className="border px-3 py-2 w-full" />
-        <input type="text" placeholder="Location" {...register("location", { required: true })} className="border px-3 py-2 w-full" />
-        <textarea placeholder="Package Description" {...register("description", { required: true })} className="border px-2 py-1 w-full" />
+    <div className="max-w-4xl mx-auto p-6 sm:p-10 bg-white rounded-2xl shadow-xl mt-10">
+      <h1 className="text-3xl font-bold mb-8 text-center text-gray-800">Add New Package</h1>
 
-        {/* ✅ Price Field */}
-        <input
-          type="number"
-          min="0"
-          step="0.01"
-          placeholder="Price"
-          {...register("price", { required: true })}
-          className="border px-3 py-2 w-full"
-        />
+      <form onSubmit={handleSubmit(onSubmit)} className="space-y-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <input {...register("title", { required: true })} placeholder="Package Title" className={inputClass} />
+          <input {...register("location", { required: true })} placeholder="Location" className={inputClass} />
+          <input {...register("price", { required: true })} placeholder="Price" type="number" min="0" step="0.01" className={inputClass} />
+        </div>
+
+        <textarea {...register("description", { required: true })} placeholder="Description" rows={4} className={textareaClass} />
 
         {/* Highlights */}
-        <h2 className="text-lg font-semibold mt-4">Highlights</h2>
-        {highlightFields.map((item, index) => (
-          <div key={item.id} className="flex flex-col gap-2 mb-4">
-            <input placeholder="Highlight Title" {...register(`highlights.${index}.title`)} className="border px-2 py-1" />
-            <textarea placeholder="Highlight Description" {...register(`highlights.${index}.description`)} className="border px-2 py-1" />
-            <button type="button" onClick={() => removeHighlight(index)} className="text-red-500">✖ Remove Highlight</button>
-          </div>
-        ))}
-        <button type="button" onClick={() => appendHighlight({ title: "", description: "" })} className="bg-blue-500 text-white px-3 py-1 rounded">+ Add Highlight</button>
+        <Section title="Highlights">
+          {highlightFields.map((item, index) => (
+            <div key={item.id} className={highlightBoxClass}>
+              <input {...register(`highlights.${index}.title`)} placeholder="Highlight Title" className={inputClass} />
+              <textarea {...register(`highlights.${index}.description`)} placeholder="Highlight Description" className={textareaClass} />
+              <RemoveButton onClick={() => removeHighlight(index)} />
+            </div>
+          ))}
+          <AddButton label="Add Highlight" onClick={() => appendHighlight({ title: "", description: "" })} />
+        </Section>
 
         {/* Inclusions */}
-        <h2 className="text-lg font-semibold mt-4">Inclusions</h2>
-        {inclusionFields.map((item, index) => (
-          <div key={item.id} className="flex items-center gap-2 mb-2">
-            <input placeholder="Inclusion" {...register(`inclusions.${index}.value`)} className="border px-2 py-1 w-full" />
-            <button type="button" onClick={() => removeInclusion(index)} className="text-red-500">✖</button>
-          </div>
-        ))}
-        <button type="button" onClick={() => appendInclusion({ value: "" })} className="bg-blue-500 text-white px-3 py-1 rounded">+ Add Inclusion</button>
+        <Section title="Inclusions">
+          {inclusionFields.map((item, index) => (
+            <div key={item.id} className="flex gap-3 items-center">
+              <input {...register(`inclusions.${index}.value`)} placeholder="Inclusion" className={`${inputClass} flex-1`} />
+              <RemoveButton onClick={() => removeInclusion(index)} />
+            </div>
+          ))}
+          <AddButton label="Add Inclusion" onClick={() => appendInclusion({ value: "" })} />
+        </Section>
 
         {/* Exclusions */}
-        <h2 className="text-lg font-semibold mt-4">Exclusions</h2>
-        {exclusionFields.map((item, index) => (
-          <div key={item.id} className="flex items-center gap-2 mb-2">
-            <input placeholder="Exclusion" {...register(`exclusions.${index}.value`)} className="border px-2 py-1 w-full" />
-            <button type="button" onClick={() => removeExclusion(index)} className="text-red-500">✖</button>
-          </div>
-        ))}
-        <button type="button" onClick={() => appendExclusion({ value: "" })} className="bg-blue-500 text-white px-3 py-1 rounded">+ Add Exclusion</button>
+        <Section title="Exclusions">
+          {exclusionFields.map((item, index) => (
+            <div key={item.id} className="flex gap-3 items-center">
+              <input {...register(`exclusions.${index}.value`)} placeholder="Exclusion" className={`${inputClass} flex-1`} />
+              <RemoveButton onClick={() => removeExclusion(index)} />
+            </div>
+          ))}
+          <AddButton label="Add Exclusion" onClick={() => appendExclusion({ value: "" })} />
+        </Section>
 
         {/* Itinerary */}
-        <h2 className="text-lg font-semibold mt-4">Itinerary</h2>
-        {itineraryFields.map((item, index) => (
-          <div key={item.id} className="flex flex-col gap-2 mb-4">
-            <input placeholder="Day" {...register(`itinerary.${index}.day`)} className="border px-2 py-1" />
-            <input placeholder="Itinerary Title" {...register(`itinerary.${index}.title`)} className="border px-2 py-1" />
-            <textarea placeholder="Itinerary Description" {...register(`itinerary.${index}.description`)} className="border px-2 py-1" />
-            <button type="button" onClick={() => removeItinerary(index)} className="text-red-500">✖ Remove Itinerary</button>
-          </div>
-        ))}
-        <button type="button" onClick={() => appendItinerary({ day: "", title: "", description: "" })} className="bg-blue-500 text-white px-3 py-1 rounded">+ Add Itinerary Item</button>
+        <Section title="Itinerary">
+          {itineraryFields.map((item, index) => (
+            <div key={item.id} className={highlightBoxClass}>
+              <input {...register(`itinerary.${index}.day`)} placeholder="Day" className={inputClass} />
+              <input {...register(`itinerary.${index}.title`)} placeholder="Itinerary Title" className={inputClass} />
+              <textarea {...register(`itinerary.${index}.description`)} placeholder="Itinerary Description" className={textareaClass} />
+              <RemoveButton onClick={() => removeItinerary(index)} />
+            </div>
+          ))}
+          <AddButton label="Add Itinerary Item" onClick={() => appendItinerary({ day: "", title: "", description: "" })} />
+        </Section>
 
-        <button type="submit" disabled={isLoading} className="bg-green-600 text-white px-4 py-2 rounded">
-          {isLoading ? "Submitting..." : "Submit"}
+        <button
+          type="submit"
+          disabled={isLoading}
+          className="w-full bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 text-white py-3 rounded-xl font-semibold shadow-md transition-all"
+        >
+          {isLoading ? "Submitting..." : "Submit Package"}
         </button>
       </form>
     </div>
   );
 };
+
+// Reusable UI Components
+const Section = ({ title, children }: { title: string; children: React.ReactNode }) => (
+  <div>
+    <h2 className="text-xl font-semibold mb-3 text-gray-700">{title}</h2>
+    <div className="space-y-4">{children}</div>
+  </div>
+);
+
+const AddButton = ({ label, onClick }: { label: string; onClick: () => void }) => (
+  <button
+    type="button"
+    onClick={onClick}
+    className="bg-blue-100 text-blue-700 hover:bg-blue-200 px-4 py-1.5 rounded-md text-sm font-medium transition-all"
+  >
+    + {label}
+  </button>
+);
+
+const RemoveButton = ({ onClick }: { onClick: () => void }) => (
+  <button
+    type="button"
+    onClick={onClick}
+    className="text-red-500 hover:text-red-600 text-sm font-medium"
+  >
+    ✖ Remove
+  </button>
+);
+
+// Tailwind classes
+const inputClass = "border border-gray-300 rounded-lg px-4 py-2 w-full text-sm focus:ring-2 focus:ring-blue-300 outline-none";
+const textareaClass = "border border-gray-300 rounded-lg px-4 py-2 w-full text-sm resize-none focus:ring-2 focus:ring-blue-300 outline-none";
+const highlightBoxClass = "bg-gray-50 p-4 border border-gray-200 rounded-lg space-y-3 shadow-sm";
 
 export default AddPackagePage;

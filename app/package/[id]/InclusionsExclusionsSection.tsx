@@ -19,7 +19,7 @@ const InclusionsExclusionsSection = ({ inclusions, exclusions }: InclusionsExclu
         {/* Inclusions List */}
         <div>
           <h3 className="font-semibold mb-2">Inclusions</h3>
-          <ul className="list-disc list-inside space-y-2">
+          <ul className="space-y-2">
             {inclusions.map((item, index) => (
               <li key={index}>
                 <p className="font-semibold">{item.value}</p>
@@ -32,7 +32,7 @@ const InclusionsExclusionsSection = ({ inclusions, exclusions }: InclusionsExclu
         {/* Exclusions List */}
         <div>
           <h3 className="font-semibold mb-2">Exclusions</h3>
-          <ul className="list-disc list-inside space-y-2">
+          <ul className="space-y-2">
             {exclusions.map((item, index) => (
               <li key={index}>
                 <p className="font-semibold">{item.value}</p>

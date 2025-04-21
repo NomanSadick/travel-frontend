@@ -18,7 +18,6 @@ type Props = {
 const PackageList = ({ searchTerm }: Props) => {
   const router = useRouter();
   const { data, error, isLoading } = useGetPackagesQuery({});
-  // console.log("Fetched Data:", data);
   const [selectedCategory, setSelectedCategory] = useState("All");
   const [priceRange, setPriceRange] = useState({ min: 0, max: 100000 });
   const [sortOrder, setSortOrder] = useState("Default");
@@ -42,23 +41,19 @@ const PackageList = ({ searchTerm }: Props) => {
   let filtered = data;
 
   if (searchTerm) {
-    console.log(filtered, "Before Filtered Data:");
     filtered = filtered.filter((pkg: any) =>
       pkg.title.toLowerCase().includes(searchTerm.toLowerCase())
     );
-    console.log("Filtered Data:", filtered);
   }
 
   if (selectedCategory !== "All") {
-    console.log(filtered, "Before Filtered Data:");
     filtered = filtered.filter((pkg: any) => pkg.category === selectedCategory);
-    console.log("Filtered Data:", filtered);
   }
-  console.log(filtered, "Before Filtered Data:");
+
   filtered = filtered.filter(
     (pkg: any) => pkg.price >= priceRange.min && pkg.price <= priceRange.max
   );
-  console.log("Filtered Data:", filtered);
+
   if (sortOrder === "lowToHigh") {
     filtered = filtered.sort((a: any, b: any) => a.price - b.price);
   } else if (sortOrder === "highToLow") {
@@ -71,11 +66,9 @@ const PackageList = ({ searchTerm }: Props) => {
     );
   }
 
-  console.log(filtered);
   const startIndex = (page - 1) * limit;
   const endIndex = startIndex + limit;
   const paginatedPackages = filtered.slice(startIndex, endIndex);
-  // console.log("Paginated Packages:", paginatedPackages);
 
   return (
     <div className="container-custom mx-auto px-4 py-8">
@@ -85,7 +78,7 @@ const PackageList = ({ searchTerm }: Props) => {
         {/* Add Package Button */}
         <Link
           href="/package/add"
-          className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 transition"
+          className="bg-orange-500 text-white px-4 py-2 rounded hover:bg-orange-300 transition"
         >
           + Add Package
         </Link>
