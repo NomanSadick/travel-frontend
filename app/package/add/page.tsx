@@ -44,19 +44,6 @@ const AddPackagePage = () => {
     remove: removeExclusion,
   } = useFieldArray({ control, name: "exclusions" });
 
-  interface PackageFormData {
-    title: string;
-    location: string;
-    description: string;
-    price: string;
-    days: string;
-    nights: string;
-    image: undefined;
-    highlights: { title: string; description: string }[];
-    itinerary: { day: string; title: string; description: string }[];
-    inclusions: { value: string }[];
-    exclusions: { value: string }[];
-  }
 
   const onSubmit = async (data: any) => {
     const formData = new FormData();
@@ -230,7 +217,7 @@ const AddPackagePage = () => {
         <button
           type="submit"
           disabled={isLoading}
-          className="w-full bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 text-white py-3 rounded-xl font-semibold shadow-md transition-all"
+          className="w-full bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 text-white py-3 cursor-pointer rounded-xl font-semibold shadow-md transition-all"
         >
           {isLoading ? "Submitting..." : "Submit Package"}
         </button>

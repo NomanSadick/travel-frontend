@@ -39,7 +39,7 @@ const PackageList = ({ searchTerm }: Props) => {
   if (isLoading) return <div>Loading...</div>;
   if (error) return <div>Error loading packages</div>;
 
-  let filtered = data;
+  let filtered = data || [];
 
   if (searchTerm) {
     filtered = filtered.filter((pkg: any) =>
@@ -183,16 +183,17 @@ const PackageList = ({ searchTerm }: Props) => {
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {paginatedPackages?.map((pkg: any) => (
               <div
-              key={pkg._id}
+                key={pkg._id}
                 className="rounded-lg p-4 shadow hover:shadow-lg transition-all duration-400 bg-gray-50 text-[#146B83] space-y-2"
               >
                 <Image
                   src={pkg.image}
-                  alt={pkg.title}
+                  alt="Package Image"
                   width={500}
-                  height={192}
-                  className="w-full h-48 object-cover rounded-md"
+                  height={300}
+                  layout="intrinsic"
                 />
+
                 <h3 className="text-xl font-semibold text-black">
                   {pkg.title}
                 </h3>
@@ -206,7 +207,7 @@ const PackageList = ({ searchTerm }: Props) => {
                 <p className="text-sm">{pkg.category}</p>
                 <button
                   onClick={() => router.push(`/package/${pkg._id}`)}
-                  className="mt-2 inline-block px-4 py-2 bg-orange-300 text-white rounded-md hover:bg-orange-400"
+                  className="mt-2 inline-block px-4 py-2 bg-orange-300 text-white rounded-md hover:bg-orange-400 cursor-pointer"
                 >
                   View Package Details
                 </button>
