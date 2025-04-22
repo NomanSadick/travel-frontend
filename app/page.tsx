@@ -6,7 +6,7 @@ import { useGetPackagesQuery } from "@/features/packages/packageApi";
 
 const Home = () => {
   const [searchTerm, setSearchTerm] = useState("");
-  const { data, isLoading, isError } = useGetPackagesQuery({});
+  const { data, isLoading, isError } = useGetPackagesQuery<Package[]>({});
 
   if (isLoading) return <p>Loading...</p>;
   if (isError) return <p>Something went wrong</p>;
@@ -19,7 +19,7 @@ const Home = () => {
     price: number;
   }
 
-  const filteredPackages = data?.filter((pkg: Package) =>
+  const filteredPackages = data?.filter((pkg) =>
     pkg.title.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
@@ -37,6 +37,7 @@ const Home = () => {
             title={pkg.title}
             description={pkg.description}
             price={pkg.price}
+            image={pkg.image}
           />
         ))}
       </div>

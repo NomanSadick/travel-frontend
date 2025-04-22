@@ -8,8 +8,9 @@ import SortDropdown from "./SortDropdown";
 import DurationFilter from "./DurationFilter";
 import Pagination from "./Pagination";
 import { FiFilter, FiX } from "react-icons/fi";
-import { useRouter } from "next/navigation"; // ✅ correct for App Router
-import Link from "next/link"; // for Link component to handle routing
+import { useRouter } from "next/navigation";
+import Link from "next/link";
+import Image from "next/image";
 
 type Props = {
   searchTerm: string;
@@ -72,10 +73,8 @@ const PackageList = ({ searchTerm }: Props) => {
 
   return (
     <div className="container-custom mx-auto px-4 py-8">
-      {/* Add Button */}
       <div className="flex justify-between items-center mb-6">
         <h1 className="text-2xl font-bold">Packages</h1>
-        {/* Add Package Button */}
         <Link
           href="/package/add"
           className="bg-orange-500 text-white px-4 py-2 rounded hover:bg-orange-300 transition"
@@ -184,9 +183,16 @@ const PackageList = ({ searchTerm }: Props) => {
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {paginatedPackages?.map((pkg: any) => (
               <div
-                key={pkg.id}
+              key={pkg._id}
                 className="rounded-lg p-4 shadow hover:shadow-lg transition-all duration-400 bg-gray-50 text-[#146B83] space-y-2"
               >
+                <Image
+                  src={pkg.image}
+                  alt={pkg.title}
+                  width={500}
+                  height={192}
+                  className="w-full h-48 object-cover rounded-md"
+                />
                 <h3 className="text-xl font-semibold text-black">
                   {pkg.title}
                 </h3>
@@ -198,7 +204,6 @@ const PackageList = ({ searchTerm }: Props) => {
                   <span>BDT</span> {pkg.price?.toLocaleString()}
                 </p>
                 <p className="text-sm">{pkg.category}</p>
-
                 <button
                   onClick={() => router.push(`/package/${pkg._id}`)}
                   className="mt-2 inline-block px-4 py-2 bg-orange-300 text-white rounded-md hover:bg-orange-400"
