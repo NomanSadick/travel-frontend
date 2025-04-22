@@ -44,7 +44,6 @@ const AddPackagePage = () => {
     remove: removeExclusion,
   } = useFieldArray({ control, name: "exclusions" });
 
-
   const onSubmit = async (data: any) => {
     const formData = new FormData();
 
@@ -119,16 +118,35 @@ const AddPackagePage = () => {
           rows={4}
           className={textareaClass}
         />
-        <input
-          type="file"
-          accept="image/*"
-          {...register("image", { required: true })}
-        />
+        {/* File Upload */}
+        <div>
+          <label className="block text-sm font-medium text-gray-700 mb-2">
+            Package Image
+          </label>
+          <div className="flex items-center gap-4">
+            <label
+              htmlFor="imageUpload"
+              className="cursor-pointer inline-block bg-blue-100 hover:bg-blue-200 text-blue-700 px-4 py-2 rounded-lg text-sm font-medium transition-all"
+            >
+              📁 Choose Image
+            </label>
+            <input
+              id="imageUpload"
+              type="file"
+              accept="image/*"
+              {...register("image", { required: true })}
+              className="hidden"
+            />
+            <span className="text-sm text-gray-500 truncate">
+              {/* Optional: Show selected file name */}
+            </span>
+          </div>
+        </div>
 
         {/* Highlights */}
-        <Section title="Highlights">
+        <Section title="Highlights ">
           {highlightFields.map((item, index) => (
-            <div key={item.id} className={highlightBoxClass}>
+            <div key={item.id} className={highlightBoxClass} classN>
               <input
                 {...register(`highlights.${index}.title`)}
                 placeholder="Highlight Title"
