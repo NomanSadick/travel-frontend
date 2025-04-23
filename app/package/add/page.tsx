@@ -252,7 +252,7 @@ const Section = ({
   title: string;
   children: React.ReactNode;
 }) => (
-  <div>
+  <div className="cursor-pointer">
     <h2 className="text-xl font-semibold mb-3 text-gray-700">{title}</h2>
     <div className="space-y-4">{children}</div>
   </div>
@@ -268,7 +268,7 @@ const AddButton = ({
   <button
     type="button"
     onClick={onClick}
-    className="bg-blue-100 text-blue-700 hover:bg-blue-200 px-4 py-1.5 rounded-md text-sm font-medium transition-all"
+    className="bg-blue-100 text-blue-700 hover:bg-blue-200 px-4 py-1.5 rounded-md text-sm font-medium transition-all cursor-pointer"
   >
     + {label}
   </button>
@@ -278,7 +278,7 @@ const RemoveButton = ({ onClick }: { onClick: () => void }) => (
   <button
     type="button"
     onClick={onClick}
-    className="text-red-500 hover:text-red-600 text-sm font-medium"
+    className="text-red-500 hover:text-red-600 text-sm font-medium cursor-pointer"
   >
     ✖ Remove
   </button>
