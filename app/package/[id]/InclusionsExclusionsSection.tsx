@@ -22,8 +22,8 @@ const InclusionsExclusionsSection = ({ inclusions, exclusions }: InclusionsExclu
           <ul className="space-y-2">
             {inclusions.map((item, index) => (
               <li key={index}>
-                <p className="font-semibold">{item.value}</p>
-                <p className="text-gray-600">{item.time}</p>
+                <p className="font-normal">{item.value}</p>
+                {/* <p className="text-gray-600">{item.time}</p> */}
               </li>
             ))}
           </ul>
@@ -35,8 +35,8 @@ const InclusionsExclusionsSection = ({ inclusions, exclusions }: InclusionsExclu
           <ul className="space-y-2">
             {exclusions.map((item, index) => (
               <li key={index}>
-                <p className="font-semibold">{item.value}</p>
-                <p className="text-gray-600">{item.time}</p>
+                <p className="font-normal">{item.value}</p>
+                {/* <p className="text-gray-600">{item.time}</p> */}
               </li>
             ))}
           </ul>

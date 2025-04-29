@@ -40,10 +40,10 @@ const Card = ({
           <span className="text-green-500 font-bold">BDT: {price}</span>
         </div>
       </div>
-      <div className="m-8 text-center">
+      <div className="m-6 text-center">
         <button
           onClick={() => router.push("/packageFilter")}
-          className="px-6 py-3 bg-orange-300 text-white rounded-lg hover:bg-orange-500 transition cursor-pointer"
+          className="px-6 py-3 bg-orange-300 text-white rounded-lg hover:bg-orange-500 transition cursor-pointer w-full"
         >
           View All Packages
         </button>
