@@ -32,7 +32,7 @@ const Navbar = () => {
             <>
               {/* Google Sign-in Button */}
               <button
-                onClick={() => signIn("google", { callbackUrl: "/dashboard" })}
+                onClick={() => signIn("google")}
                 className="bg-blue-500 text-white px-3 py-1 rounded hover:bg-blue-600"
               >
                 Login with Google

@@ -183,35 +183,33 @@ const PackageList = ({ searchTerm }: Props) => {
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {paginatedPackages?.map((pkg: any) => (
               <div
-                key={pkg._id}
-                className="rounded-lg p-4 shadow hover:shadow-lg transition-all duration-400 bg-gray-50 text-[#146B83] space-y-2"
+              key={pkg._id}
+              className="rounded-lg p-4 shadow hover:shadow-lg transition-all duration-400 bg-gray-50 text-[#146B83] flex flex-col justify-between h-full"
+            >
+              <Image
+                src={pkg.image}
+                alt="Package Image"
+                width={500}
+                height={300}
+                layout="intrinsic"
+              />
+            
+              <h3 className="text-xl font-semibold text-black">{pkg.title}</h3>
+              <p>{pkg.location}</p>
+              <p className="text-sm">{pkg.days} days / {pkg.nights} nights</p>
+              <p className="font-bold">
+                <span>BDT</span> {pkg.price?.toLocaleString()}
+              </p>
+              <p className="text-sm">{pkg.category}</p>
+            
+              <button
+                onClick={() => router.push(`/package/${pkg._id}`)}
+                className="w-full mt-auto px-4 py-2 bg-orange-300 text-white rounded-md hover:bg-orange-400 cursor-pointer text-center"
               >
-                <Image
-                  src={pkg.image}
-                  alt="Package Image"
-                  width={500}
-                  height={300}
-                  layout="intrinsic"
-                />
-
-                <h3 className="text-xl font-semibold text-black">
-                  {pkg.title}
-                </h3>
-                <p>{pkg.location}</p>
-                <p className="text-sm">
-                  {pkg.days} days / {pkg.nights} nights
-                </p>
-                <p className="font-bold">
-                  <span>BDT</span> {pkg.price?.toLocaleString()}
-                </p>
-                <p className="text-sm">{pkg.category}</p>
-                <button
-                  onClick={() => router.push(`/package/${pkg._id}`)}
-                  className="mt-2 inline-block px-4 py-2 bg-orange-300 text-white rounded-md hover:bg-orange-400 cursor-pointer"
-                >
-                  View Package Details
-                </button>
-              </div>
+                View Package Details
+              </button>
+            </div>
+            
             ))}
           </div>
           <Pagination
