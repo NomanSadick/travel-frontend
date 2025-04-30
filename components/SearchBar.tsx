@@ -14,15 +14,15 @@ const SearchBar = ({ searchTerm, setSearchTerm }: Props) => {
   useEffect(() => {
     setIsTyping(true);
     const delay = setTimeout(() => {
-      setSearchTerm(localSearch); // debounce করে searchTerm update হবে
+      setSearchTerm(localSearch); // debounce searchTerm update
       setIsTyping(false);
     }, 2000);
   
-    return () => clearTimeout(delay); // টাইপ করতে থাকলে আগের টাইমার ক্যানসেল হবে
+    return () => clearTimeout(delay); // Cancel previous timer if typing continues
   }, [localSearch, setSearchTerm]);
 
   return (
-    <div className="w-full mx-auto px-4">
+    <div className="max-w-7xl mx-auto">
       {isTyping && <p className="text-sm text-gray-400">Searching...</p>}
 
       <input

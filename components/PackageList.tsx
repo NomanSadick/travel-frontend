@@ -175,7 +175,7 @@ const PackageList = ({ searchTerm }: Props) => {
         )}
 
         {/* Main Content */}
-        <div className="lg:w-3/4 w-full">
+        <div className="lg:w-3/4 w-full relative">
           <CategoryFilter
             selectedCategory={selectedCategory}
             setSelectedCategory={setSelectedCategory}
@@ -183,41 +183,46 @@ const PackageList = ({ searchTerm }: Props) => {
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {paginatedPackages?.map((pkg: any) => (
               <div
-              key={pkg._id}
-              className="rounded-lg p-4 shadow hover:shadow-lg transition-all duration-400 bg-gray-50 text-[#146B83] flex flex-col justify-between h-full"
-            >
-              <Image
-                src={pkg.image}
-                alt="Package Image"
-                width={500}
-                height={300}
-                layout="intrinsic"
-              />
-            
-              <h3 className="text-xl font-semibold text-black">{pkg.title}</h3>
-              <p>{pkg.location}</p>
-              <p className="text-sm">{pkg.days} days / {pkg.nights} nights</p>
-              <p className="font-bold">
-                <span>BDT</span> {pkg.price?.toLocaleString()}
-              </p>
-              <p className="text-sm">{pkg.category}</p>
-            
-              <button
-                onClick={() => router.push(`/package/${pkg._id}`)}
-                className="w-full mt-auto px-4 py-2 bg-orange-300 text-white rounded-md hover:bg-orange-400 cursor-pointer text-center"
+                key={pkg._id}
+                className="rounded-lg p-4 shadow hover:shadow-lg transition-all duration-400 bg-gray-50 text-[#146B83] flex flex-col justify-between h-full"
               >
-                View Package Details
-              </button>
-            </div>
-            
+                <Image
+                  src={pkg.image}
+                  alt="Package Image"
+                  width={500}
+                  height={300}
+                  layout="intrinsic"
+                />
+
+                <h3 className="text-xl font-semibold text-black">
+                  {pkg.title}
+                </h3>
+                <p>{pkg.location}</p>
+                <p className="text-sm">
+                  {pkg.days} days / {pkg.nights} nights
+                </p>
+                <p className="font-bold">
+                  <span>BDT</span> {pkg.price?.toLocaleString()}
+                </p>
+                <p className="text-sm">{pkg.category}</p>
+
+                <button
+                  onClick={() => router.push(`/package/${pkg._id}`)}
+                  className="w-full mt-auto px-4 py-2 bg-orange-300 text-white rounded-md hover:bg-orange-400 cursor-pointer text-center"
+                >
+                  View Package Details
+                </button>
+              </div>
             ))}
           </div>
-          <Pagination
-            page={page}
-            setPage={setPage}
-            total={filtered.length}
-            limit={limit}
-          />
+          <div className="absolute -bottom-12 left-0 right-0 mt-4">
+            <Pagination
+              page={page}
+              setPage={setPage}
+              total={filtered.length}
+              limit={limit}
+            />
+          </div>
         </div>
       </div>
     </div>

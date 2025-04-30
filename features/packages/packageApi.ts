@@ -9,6 +9,8 @@ export interface IPackage {
   price: number;
   duration: string;
   featured: boolean;
+  image: string;
+  description: string;
   // Add other fields as needed
 }
 

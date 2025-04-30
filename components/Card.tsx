@@ -7,10 +7,12 @@ const Card = ({
   description,
   price,
   image,
+  
 }: {
   title: string;
   description: string;
   price: number;
+  image: string;
 }) => {
   const router = useRouter();
 
@@ -21,7 +23,7 @@ const Card = ({
 
   return (
     <div
-      className="max-w-sm rounded overflow-hidden shadow-lg bg-white"
+      className="rounded overflow-hidden shadow-lg bg-white"
       onClick={handleClick}
     >
       <div>
