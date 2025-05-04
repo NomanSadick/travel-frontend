@@ -7,6 +7,7 @@ import dbConnect from "@/lib/dbConnect";
 import User from "@/lib/models/User";
 import bcrypt from "bcryptjs";
 
+// Extend NextAuth session type to include the custom 'id'
 declare module "next-auth" {
   interface Session {
     user: {
@@ -16,6 +17,11 @@ declare module "next-auth" {
       id?: string;
     };
   }
+}
+
+// Define the User type to be used in the JWT callback
+interface UserWithId extends Omit<typeof User, "_id"> {
+  _id: string;
 }
 
 export const authOptions: NextAuthOptions = {
@@ -54,17 +60,21 @@ export const authOptions: NextAuthOptions = {
       return true;
     },
     async session({ session }) {
-      if (session.user) {
+      if (session.user && session.user.email) {
         const dbUser = await User.findOne({ email: session.user.email });
-        session.user.id = dbUser._id.toString();
+        if (dbUser) {
+          session.user.id = dbUser._id.toString();
+        } else {
+          console.error(`User not found: ${session.user.email}`);
+        }
       }
       return session;
     },
     async jwt({ token, user }) {
       if (user) {
-        if ('_id' in user) {
-          token.id = user._id;
-        }
+        // Explicitly type `user` as `UserWithId` to avoid the unknown type for `_id`
+        const userWithId = user as unknown as UserWithId;
+        token.id = userWithId._id; // Now TypeScript knows `_id` is a string
       }
       return token;
     },
