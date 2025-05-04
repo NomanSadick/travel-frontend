@@ -1,21 +1,58 @@
 "use client";
 import { useForm, useFieldArray } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { z } from "zod";
 import { useAddPackageMutation } from "@/features/packages/packageApi";
 
+// Zod schema definition
+const packageSchema = z.object({
+  title: z.string().min(1, "Title is required"),
+  location: z.string().min(1, "Location is required"),
+  price: z.string().min(1, "Price is required"),
+  days: z.string().min(1, "Days is required"),
+  nights: z.string().min(1, "Nights is required"),
+  category: z.string(),
+  description: z.string().min(1, "Description is required"),
+  image: z
+    .any()
+    .refine((files) => files?.[0], {
+      message: "Image is required",
+    }),
+  highlights: z.array(
+    z.object({
+      title: z.string(),
+      description: z.string(),
+    })
+  ),
+  inclusions: z.array(z.object({ value: z.string() })),
+  exclusions: z.array(z.object({ value: z.string() })),
+  itinerary: z.array(
+    z.object({
+      day: z.string(),
+      title: z.string(),
+      description: z.string(),
+    })
+  ),
+});
+
+type PackageFormData = z.infer<typeof packageSchema>;
+
 const AddPackagePage = () => {
-  const { register, handleSubmit, control, reset } = useForm({
+  const { register, handleSubmit, control, reset } = useForm<PackageFormData>({
+    resolver: zodResolver(packageSchema),
     defaultValues: {
       title: "",
       location: "",
-      description: "",
       price: "",
       days: "",
       nights: "",
-      category: "Quick Gateway", // Default value
+      category: "Quick Gateway",
+      description: "",
+      image: undefined,
       highlights: [{ title: "", description: "" }],
-      itinerary: [{ day: "", title: "", description: "" }],
       inclusions: [{ value: "" }],
       exclusions: [{ value: "" }],
+      itinerary: [{ day: "", title: "", description: "" }],
     },
   });
 
@@ -26,7 +63,7 @@ const AddPackagePage = () => {
   const { fields: inclusionFields, append: appendInclusion, remove: removeInclusion } = useFieldArray({ control, name: "inclusions" });
   const { fields: exclusionFields, append: appendExclusion, remove: removeExclusion } = useFieldArray({ control, name: "exclusions" });
 
-  const onSubmit = async (data: any) => {
+  const onSubmit = async (data: PackageFormData) => {
     const formData = new FormData();
     formData.append("title", data.title);
     formData.append("location", data.location);
@@ -37,31 +74,31 @@ const AddPackagePage = () => {
     formData.append("category", data.category);
     formData.append("image", data.image[0]);
     formData.append("highlights", JSON.stringify(data.highlights));
-    formData.append("itinerary", JSON.stringify(data.itinerary));
     formData.append("inclusions", JSON.stringify(data.inclusions));
     formData.append("exclusions", JSON.stringify(data.exclusions));
-
+    formData.append("itinerary", JSON.stringify(data.itinerary));
+  
     try {
-      await addPackage(formData as any).unwrap();
+      await addPackage(formData as unknown as Partial<Record<string, string | File>>); // Ensure the mutation accepts FormData
       alert("Package saved successfully!");
       reset();
     } catch (err) {
       console.error("Error submitting:", err);
       alert("Something went wrong!");
     }
-  };
+  };;
 
   return (
     <div className="max-w-4xl mx-auto p-6 sm:p-10 bg-white rounded-2xl shadow-xl mt-10">
       <h1 className="text-3xl font-bold mb-8 text-center text-gray-800">Add New Package</h1>
       <form onSubmit={handleSubmit(onSubmit)} className="space-y-8">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          <input {...register("title", { required: true })} placeholder="Package Title" className={inputClass} />
-          <input {...register("location", { required: true })} placeholder="Location" className={inputClass} />
-          <input {...register("price", { required: true })} type="number" min="0" step="0.01" placeholder="Price" className={inputClass} />
-          <input {...register("days", { required: true })} type="number" min="1" placeholder="Number of Days" className={inputClass} />
-          <input {...register("nights", { required: true })} type="number" min="0" placeholder="Number of Nights" className={inputClass} />
-          <select {...register("category", { required: true })} className={inputClass}>
+          <input {...register("title")} placeholder="Package Title" className={inputClass} />
+          <input {...register("location")} placeholder="Location" className={inputClass} />
+          <input {...register("price")} type="number" min="0" step="0.01" placeholder="Price" className={inputClass} />
+          <input {...register("days")} type="number" min="1" placeholder="Number of Days" className={inputClass} />
+          <input {...register("nights")} type="number" min="0" placeholder="Number of Nights" className={inputClass} />
+          <select {...register("category")} className={inputClass}>
             <option value="Quick Gateway">Quick Gateway</option>
             <option value="Adventure">Adventure</option>
             <option value="Relaxation">Relaxation</option>
@@ -70,16 +107,16 @@ const AddPackagePage = () => {
           </select>
         </div>
 
-        <textarea {...register("description", { required: true })} placeholder="Description" rows={4} className={textareaClass} />
+        <textarea {...register("description")} placeholder="Description" rows={4} className={textareaClass} />
 
-        {/* Image upload */}
+        {/* Image Upload */}
         <div>
           <label className="block text-sm font-medium text-gray-700 mb-2">Package Image</label>
           <div className="flex items-center gap-4">
             <label htmlFor="imageUpload" className="cursor-pointer inline-block bg-blue-100 hover:bg-blue-200 text-blue-700 px-4 py-2 rounded-lg text-sm font-medium transition-all">
               📁 Choose Image
             </label>
-            <input id="imageUpload" type="file" accept="image/*" {...register("image", { required: true })} className="hidden" />
+            <input id="imageUpload" type="file" accept="image/*" {...register("image")} className="hidden" />
           </div>
         </div>
 
@@ -134,7 +171,7 @@ const AddPackagePage = () => {
   );
 };
 
-// --- Reusable UI Components ---
+// Reusable UI Components
 const Section = ({ title, children }: { title: string; children: React.ReactNode }) => (
   <div className="cursor-pointer">
     <h2 className="text-xl font-semibold mb-3 text-gray-700">{title}</h2>
@@ -154,7 +191,7 @@ const RemoveButton = ({ onClick }: { onClick: () => void }) => (
   </button>
 );
 
-// --- Tailwind Input Styles ---
+// Tailwind Styles
 const inputClass = "border border-gray-300 rounded-lg px-4 py-2 w-full focus:outline-none focus:ring-2 focus:ring-blue-400 transition-all";
 const textareaClass = "border border-gray-300 rounded-lg px-4 py-2 w-full focus:outline-none focus:ring-2 focus:ring-blue-400 transition-all";
 const highlightBoxClass = "grid grid-cols-1 md:grid-cols-2 gap-4 items-start border border-gray-200 p-4 rounded-lg shadow-sm";

@@ -30,7 +30,7 @@ const Footer = () => {
             <FaTwitter size={16} />
           </a>
         </div>
-      </div>
+      </div>  
     </footer>
   );
 };

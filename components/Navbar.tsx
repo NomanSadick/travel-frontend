@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useSession, signIn, signOut } from "next-auth/react";
+import { useSession, signOut } from "next-auth/react";
 
 const Navbar = () => {
   const { data: session, status } = useSession();
@@ -31,12 +31,12 @@ const Navbar = () => {
           ) : (
             <>
               {/* Google Sign-in Button */}
-              <button
+              {/* <button
                 onClick={() => signIn("google")}
                 className="bg-blue-500 text-white px-3 py-1 rounded hover:bg-blue-600"
               >
                 Login with Google
-              </button>
+              </button> */}
 
               {/* Optional: Traditional login/register links */}
               <Link

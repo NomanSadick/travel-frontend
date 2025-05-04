@@ -8,25 +8,9 @@ import HighlightsSection from "./HighlightsSection";
 import ItinerarySection from "./ItinerarySection";
 import InclusionsExclusionsSection from "./InclusionsExclusionsSection";
 
-interface PackageData {
-  title: string;
-  location: string;
-  image: string;
-  description: string;
-  days: number;
-  nights: number;
-  highlights: string[];
-  itinerary: string[];
-  inclusions: string[];
-  exclusions: string[];
-}
-
 const PackageDetails = () => {
   const { id } = useParams();
-  const packageQuery = useGetPackageQuery<PackageData>(id as string);
-  const packageData = packageQuery.data;
-  const isLoading = packageQuery.isLoading;
-  const error = packageQuery.error;
+  const { data: packageData, isLoading, error } = useGetPackageQuery(id as string);
 
   if (isLoading) return <div className="p-8">Loading...</div>;
   if (error || !packageData) return <div className="p-8">Something went wrong!</div>;

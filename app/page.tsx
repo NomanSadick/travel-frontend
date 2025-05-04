@@ -7,6 +7,7 @@ import {
   IPackage as ApiPackage,
 } from "@/features/packages/packageApi";
 
+
 const Home = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [bgIndex, setBgIndex] = useState(0);
