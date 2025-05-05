@@ -21,8 +21,8 @@ const CategoryFilter = ({ selectedCategory, setSelectedCategory }: Props) => {
         <button
           key={category}
           onClick={() => setSelectedCategory(category)}
-          className={`px-8 py-2 rounded-lg border text-sm font-semibold transition-all duration-200 ${selectedCategory
-            === category ? "border-blue-500 text-blue-600 font-semibold" : "border-gray-300 text-gray-600 hover:border-blue-300 hover:text-blue-500"
+          className={`px-8 py-2 rounded-lg border text-sm font-semibold transition-all duration-200 cursor-pointer ${selectedCategory
+            === category ? "border-orange-300 text-orange-300 font-semibold" : "border-gray-300 text-gray-600 hover:border-orange-100 hover:text-orange-300"
           }`}
         >
           {category}

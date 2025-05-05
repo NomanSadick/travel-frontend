@@ -18,7 +18,7 @@ const SortDropdown = ({ sortOrder, setSortOrder }: Props) => {
         <select
           value={sortOrder}
           onChange={handleSortChange}
-          className="w-full border border-orange-300  rounded-md px-4 py-2 bg-sky-50 appearance-none text-gray-700 focus:outline-none focus:ring-1 focus:ring-orange-300"
+          className="w-full border border-orange-300  rounded-md px-4 py-2 bg-sky-50 appearance-none text-gray-600 focus:outline-none focus:ring-1 focus:ring-orange-300"
         >
           <option value="Default">Default</option>
           <option value="lowToHigh">Price: Low to High</option>

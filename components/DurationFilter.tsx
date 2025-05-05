@@ -56,7 +56,7 @@ const DurationFilter = ({ selectedDurations, setSelectedDurations }: Props) => {
                   </svg>
                 )}
               </div>
-              <span className="text-sm font-medium">
+              <span className="text-sm font-medium text-gray-600">
                 {days} Days ({nights} Night{nights > 1 ? "s" : ""})
               </span>
             </label>

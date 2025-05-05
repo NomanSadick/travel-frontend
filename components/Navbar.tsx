@@ -9,7 +9,7 @@ const Navbar = () => {
   return (
     <nav className="bg-white shadow px-4 py-3">
       <div className="max-w-7xl mx-auto flex justify-between items-center">
-        <Link href="/" className="text-xl font-bold text-orange-600">
+        <Link href="/" className="text-xl font-bold text-orange-500">
         OtaSphere
         </Link>
 

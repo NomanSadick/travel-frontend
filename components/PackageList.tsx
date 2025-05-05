@@ -107,7 +107,7 @@ const PackageList = ({ searchTerm }: Props) => {
           <div className="flex justify-between items-center mb-4 px-2">
             <h2 className="text-xl font-semibold text-gray-700">Filters</h2>
             <button
-              className="text-orange-500 hover:underline"
+              className="text-orange-500 hover:underline cursor-pointer"
               onClick={() => {
                 setSelectedCategory("All");
                 setPriceRange({ min: 0, max: 100000 });
