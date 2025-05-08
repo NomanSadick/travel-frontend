@@ -50,7 +50,7 @@ export default function LoginPage() {
 
           <button
             type="submit"
-            className="w-full bg-orange-500 hover:bg-orange-600 text-white font-medium py-2 rounded-lg transition duration-200"
+            className="w-full bg-orange-300 hover:bg-orange-600 text-white font-medium py-2 rounded-lg transition duration-200"
           >
             Login
           </button>
@@ -58,7 +58,7 @@ export default function LoginPage() {
 
         <p className="text-center text-sm text-gray-500 mt-6">
           Don&apos;t have an account?{" "}
-          <Link href="/api/auth/register" className="text-orange-500 hover:underline font-medium">
+          <Link href="/api/auth/register" className="text-orange-300 hover:underline font-medium">
             Register here
           </Link>
         </p>

@@ -77,7 +77,7 @@ const PackageList = ({ searchTerm }: Props) => {
         <h1 className="text-2xl font-bold">Packages</h1>
         <Link
           href="/package/add"
-          className="bg-orange-500 text-white px-4 py-2 rounded hover:bg-orange-300 transition"
+          className="bg-orange-300 text-white px-4 py-2 rounded hover:bg-orange-300 transition"
         >
           + Add Package
         </Link>
@@ -88,13 +88,13 @@ const PackageList = ({ searchTerm }: Props) => {
         <div className="flex justify-between items-center">
           <button
             onClick={() => setSelectedCategory("All")}
-            className="text-sm bg-orange-500 text-white px-4 py-2 rounded-lg"
+            className="text-sm bg-orange-300 text-white px-4 py-2 rounded-lg"
           >
             Reset Category
           </button>
           <button
             onClick={() => setIsFilterOpen(true)}
-            className="flex items-center gap-2 bg-orange-500 text-white px-4 py-2 rounded-lg"
+            className="flex items-center gap-2 bg-orange-300 text-white px-4 py-2 rounded-lg"
           >
             <FiFilter /> Filters
           </button>
@@ -107,7 +107,7 @@ const PackageList = ({ searchTerm }: Props) => {
           <div className="flex justify-between items-center mb-4 px-2">
             <h2 className="text-xl font-semibold text-gray-700">Filters</h2>
             <button
-              className="text-orange-500 hover:underline cursor-pointer"
+              className="text-orange-300 hover:underline cursor-pointer"
               onClick={() => {
                 setSelectedCategory("All");
                 setPriceRange({ min: 0, max: 100000 });
@@ -162,7 +162,7 @@ const PackageList = ({ searchTerm }: Props) => {
                   />
                   <div className="mt-4 flex justify-center">
                     <button
-                      className="px-4 py-2 bg-orange-500 text-white rounded-md"
+                      className="px-4 py-2 bg-orange-300 text-white rounded-md"
                       onClick={() => setIsFilterOpen(false)}
                     >
                       Apply Filters
@@ -180,11 +180,11 @@ const PackageList = ({ searchTerm }: Props) => {
             selectedCategory={selectedCategory}
             setSelectedCategory={setSelectedCategory}
           />
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-16">
             {paginatedPackages?.map((pkg: any) => (
               <div
                 key={pkg._id}
-                className="rounded-lg p-4 shadow hover:shadow-lg transition-all duration-400 bg-gray-50 text-[#146B83] flex flex-col justify-between h-full"
+                className="rounded-lg p-4 shadow hover:shadow-lg transition-all duration-400 bg-gray-50 text-gray-700 flex flex-col justify-between h-full"
               >
                 <Image
                   src={pkg.image}

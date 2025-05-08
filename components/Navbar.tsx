@@ -41,7 +41,7 @@ const Navbar = () => {
               {/* Optional: Traditional login/register links */}
               <Link
                 href="/api/auth/login"
-                className="bg-orange-500 text-white px-3 py-1 rounded hover:bg-orange-600"
+                className="bg-orange-300 text-white px-3 py-1 rounded hover:bg-orange-600"
               >
                 Login
               </Link>

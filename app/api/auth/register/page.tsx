@@ -63,14 +63,14 @@ export default function RegisterPage() {
 
           <button
             type="submit"
-            className="w-full bg-orange-500 hover:bg-orange-600 text-white font-medium py-2 rounded-lg transition duration-200"
+            className="w-full bg-orange-300 hover:bg-orange-600 text-white font-medium py-2 rounded-lg transition duration-200"
           >
             Register
           </button>
         </form>
 
         <p className="text-center text-sm text-gray-500 mt-6">
-          <Link href="/api/auth/login" className="text-orange-500 hover:underline font-medium">
+          <Link href="/api/auth/login" className="text-orange-300 hover:underline font-medium">
             Login here
           </Link>
         </p>

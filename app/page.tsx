@@ -6,6 +6,7 @@ import {
   useGetPackagesQuery,
   IPackage as ApiPackage,
 } from "@/features/packages/packageApi";
+import ReviewSlider from "@/components/ReviewSlider";
 
 
 const Home = () => {
@@ -65,6 +66,7 @@ const Home = () => {
           />
         ))}
       </div>
+      <ReviewSlider />
     </main>
   );
 };
