@@ -10,8 +10,6 @@ import { faStar } from "@fortawesome/free-solid-svg-icons";
 import { ReviewsData } from "@/app/data/ReviewData";
 
 
-
-
 const Slider = dynamic(() => import("react-slick"), { ssr: false });
 
 const ReviewSlider = () => {
@@ -50,7 +48,7 @@ const ReviewSlider = () => {
        <div className="w-full overflow-hidden">
        <Slider {...settings}>
           {ReviewsData.map((review) => (
-            <div key={review.id} className="md:p-2 ">
+            <div key={review.id} className="md:p-2 px-2 text-justify">
               <div className="bg-white shadow-md rounded-lg p-6 border border-gray-200">
                 <FaQuoteLeft className="text-gray-100 text-4xl" />
                 <div className="flex gap-1 mb-2">
