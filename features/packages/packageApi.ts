@@ -39,8 +39,8 @@ export interface IPackage {
 // Create the API
 export const packageApi = createApi({
   reducerPath: "packageApi",
-  baseQuery: fetchBaseQuery({ baseUrl: "http://localhost:5000/api/" }),
-  // baseQuery: fetchBaseQuery({ baseUrl: "https://travel-backend-hcyy.onrender.com/api/" }),
+  // baseQuery: fetchBaseQuery({ baseUrl: "http://localhost:5000/api/" }),
+  baseQuery: fetchBaseQuery({ baseUrl: "https://travel-backend-hcyy.onrender.com/api/" }),
   tagTypes: ["Packages"], // Optional: useful for cache invalidation
   endpoints: (builder) => ({
     // GET /packages?query=params
@@ -76,4 +76,4 @@ export const {
   useAddPackageMutation,
 } = packageApi;
 
-//
+////
